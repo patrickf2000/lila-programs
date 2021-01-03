@@ -1,15 +1,15 @@
 
 # An example of calling fork-exec on Linux
 
-const int linux_fork = 57;
-const int linux_exec = 59;
-
 use std.text_io;
 use std.os;
 
+const int linux_wait = 61;
+
 func main -> int
     pid : int64 = 0;
-    exe_args : str[3];
+    exe_args : str[1];
+    status : int = -1;
 begin
     pid = fork();
     
@@ -20,10 +20,8 @@ begin
         return 0;
     end
     
-    exe_args[0] = "/bin/ls";
-    exe_args[1] = "-l";
-    exe_args[2] = 0;
-    syscall(linux_exec, "/bin/ls", exe_args, 0);
+    exe_args[0] = 0;
+    exec_process("/bin/ls", exe_args);
     
     println("Error");
     

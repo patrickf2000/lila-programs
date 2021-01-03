@@ -12,6 +12,7 @@ lilac coreutils/pwd.ls -o build/pwd2
 
 lilac examples/cd.ls -o build/cd2
 lilac examples/fork1.ls -o build/fork1
+lilac examples/fork2.ls -o build/fork2
 
 echo "Done"
 
