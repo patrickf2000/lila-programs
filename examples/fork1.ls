@@ -17,15 +17,15 @@ begin
         println("Error calling fork.");
         return pid;
     elif pid == 0
+        exe_args[0] = "/bin/ls";
+        exe_args[1] = "-l";
+        exe_args[2] = 0;
+        syscall(linux_exec, "/bin/ls", exe_args, 0);
+        
+        println("Error");
+        
         return 0;
     end
-    
-    exe_args[0] = "/bin/ls";
-    exe_args[1] = "-l";
-    exe_args[2] = 0;
-    syscall(linux_exec, "/bin/ls", exe_args, 0);
-    
-    println("Error");
     
     return 0;
 end

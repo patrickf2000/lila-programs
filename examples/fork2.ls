@@ -9,7 +9,7 @@ const int linux_wait = 61;
 func main -> int
     pid : int64 = 0;
     exe_args : str[1];
-    status : int = -1;
+    status : int = 0;
 begin
     pid = fork();
     
@@ -17,13 +17,16 @@ begin
         println("Error calling fork.");
         return pid;
     elif pid == 0
+        exe_args[0] = 0;
+        exec_process("/usr/bin/sh", exe_args);
+        
+        println("Error");
+    else
+        syscall(linux_wait, pid, @status, 0, 0);
+        println("Process done!");
         return 0;
     end
     
-    exe_args[0] = 0;
-    exec_process("/bin/ls", exe_args);
-    
-    println("Error");
     
     return 0;
 end
