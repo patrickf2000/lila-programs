@@ -4,8 +4,6 @@
 use std.text_io;
 use std.os;
 
-const int linux_wait = 61;
-
 func main -> int
     pid : int64 = 0;
     exe_args : str[1];
@@ -18,11 +16,11 @@ begin
         return pid;
     elif pid == 0
         exe_args[0] = 0;
-        exec_process("/usr/bin/sh", exe_args);
+        exec("/usr/bin/sh", exe_args);
         
         println("Error");
     else
-        syscall(linux_wait, pid, @status, 0, 0);
+        waitpid(pid);
         println("Process done!");
         return 0;
     end
